@@ -9,11 +9,12 @@ function makeInterval(
   temp_max: number,
   description = "clear sky",
   icon = "01d",
+  humidity = 50,
 ): OpenWeatherInterval {
   return {
     dt: 0,
     dt_txt,
-    main: { temp, temp_min, temp_max },
+    main: { temp, temp_min, temp_max, humidity },
     weather: [{ description, icon }],
   };
 }

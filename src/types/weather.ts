@@ -5,6 +5,7 @@ export interface OpenWeatherInterval {
     temp: number;
     temp_min: number;
     temp_max: number;
+    humidity: number;
   };
   weather: {
     description: string;
@@ -28,6 +29,7 @@ export interface DayForecast {
   lowTemp: number;
   description: string;
   icon: string;
+  humidity: number;
 }
 
 export interface ForecastData {

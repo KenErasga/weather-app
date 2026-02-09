@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import { fetchForecast } from "@/lib/fetchForecast";
 
 function formatDate(dateStr: string): string {
@@ -34,22 +36,24 @@ export default async function ForecastPage({
       </h1>
       <ul className="space-y-4">
         {result.days.map((day) => (
-          <li
-            key={day.date}
-            className="flex items-center gap-4 rounded-lg border border-gray-200 p-4"
-          >
-            <img
-              src={`https://openweathermap.org/img/wn/${day.icon}@2x.png`}
-              alt={day.description}
-              width={64}
-              height={64}
-            />
-            <div>
-              <p className="font-semibold">{formatDate(day.date)}</p>
-              <p className="text-gray-600">
-                {day.highTemp}° / {day.lowTemp}° &mdash; {day.description}
-              </p>
-            </div>
+          <li key={day.date}>
+            <Link
+              href={`/forecast/${encodeURIComponent(city)}/${day.date}`}
+              className="flex items-center gap-4 rounded-lg border border-gray-200 p-4 hover:bg-gray-50 cursor-pointer"
+            >
+              <Image
+                src={`https://openweathermap.org/img/wn/${day.icon}@2x.png`}
+                alt={day.description}
+                width={64}
+                height={64}
+              />
+              <div>
+                <p className="font-semibold">{formatDate(day.date)}</p>
+                <p className="text-gray-600">
+                  {day.highTemp}° / {day.lowTemp}° &mdash; {day.description}
+                </p>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>

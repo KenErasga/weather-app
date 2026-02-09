@@ -25,15 +25,16 @@ export function groupByDay(intervals: OpenWeatherInterval[]): DayForecast[] {
   for (const [date, dayIntervals] of intervalsByDate) {
     // Find the highest and lowest temperature for the day
     const highTemp = Math.round(
-      Math.max(...dayIntervals.map((interval) => interval.main.temp_max))
+      Math.max(...dayIntervals.map((interval) => interval.main.temp_max)),
     );
     const lowTemp = Math.round(
-      Math.min(...dayIntervals.map((interval) => interval.main.temp_min))
+      Math.min(...dayIntervals.map((interval) => interval.main.temp_min)),
     );
 
     // Prefer the 12:00 forecast for description/icon, fallback to first interval
     const middayInterval =
-      dayIntervals.find((interval) => interval.dt_txt.includes("12:00")) || dayIntervals[0];
+      dayIntervals.find((interval) => interval.dt_txt.includes("12:00")) ||
+      dayIntervals[0];
 
     days.push({
       date,
@@ -41,6 +42,7 @@ export function groupByDay(intervals: OpenWeatherInterval[]): DayForecast[] {
       lowTemp,
       description: middayInterval.weather[0].description,
       icon: middayInterval.weather[0].icon,
+      humidity: middayInterval.main.humidity,
     });
   }
 
