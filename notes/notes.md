@@ -64,6 +64,7 @@ Gives you:
 - High-Level Approach 
 - Production concerns
 
-From the result of the prompt. I start chaining the prompts on how I want to do it. Keep this design plan into context and I want to do it step by step.
+From the result of the prompt. I start applying changes on how I want to do it (more prompts, testing, debugging... etc). Keep the design plan into context and I want to do it step by step.
 
-First I want a scaffold of NextJS with hello world, add vitest for testing and create test, add prettier, then run test, lint and format to verify.
+- First I want a scaffold of NextJS with hello world, add vitest for testing and create test, add prettier, then run test, lint and format to verify.
+- Create navbar and search form components. For Search do not add any functionality yet.  We need a persistent navbar across pages with the app title "My Weather App" and a search form, plus a standalone search form on the home page body. Both search forms reuse the same component.
