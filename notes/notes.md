@@ -68,3 +68,15 @@ From the result of the prompt. I start applying changes on how I want to do it (
 
 - First I want a scaffold of NextJS with hello world, add vitest for testing and create test, add prettier, then run test, lint and format to verify.
 - Create navbar and search form components. For Search do not add any functionality yet.  We need a persistent navbar across pages with the app title "My Weather App" and a search form, plus a standalone search form on the home page body. Both search forms reuse the same component.
+- The search form UI exists but has no functionality. We need to wire it up to the Open Weather free-tier /forecast API (3-hour intervals, 5 days) so we can search a city and see a 5-day forecast list. The API key must stay server-side. Show just the list. Using https://openweathermap.org/img/wn/<code>@2x.png for the icons.
+
+## TODO list
+
+Just a list of todos, or nice things to have.
+
+- Add pre-commit hooks to run test, lint and formating. Maybe use Husky.
+- Add End-to-End tests.
+- Add Redux or other state management frameworks.
+- Add better custom error handling, maybe a common component.
+- Add a common component for the loading.
+- Add on click for day weather details.

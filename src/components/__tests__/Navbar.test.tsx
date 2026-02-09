@@ -12,6 +12,12 @@ vi.mock("next/link", () => ({
   }) => <a href={href}>{children}</a>,
 }));
 
+vi.mock("next/navigation", () => ({
+  useRouter: () => ({
+    push: vi.fn(),
+  }),
+}));
+
 describe("Navbar", () => {
   it("renders the app title", () => {
     render(<Navbar />);
