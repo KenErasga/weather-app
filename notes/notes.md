@@ -34,7 +34,9 @@
 
 Prompt used to start:
 
-You are a lead software engineer helping design a new piece of production code.
+Role:
+- You are a senior software engineer helping design a new piece of production code.
+- Expert in NextJS
 
 Context:
 - Language: TypeScript
@@ -52,3 +54,16 @@ Output format:
 - Bullet points under clear headings
 - No code
 - Explicitly call out uncertainty
+
+The prompt above gives a plan without any code.
+
+Gives you: 
+- Assumptions 
+- Constraints 
+- Edge Cases & Failure Modes 
+- High-Level Approach 
+- Production concerns
+
+From the result of the prompt. I start chaining the prompts on how I want to do it. Keep this design plan into context and I want to do it step by step.
+
+First I want a scaffold of NextJS with hello world, add vitest for testing and create test, add prettier, then run test, lint and format to verify.
