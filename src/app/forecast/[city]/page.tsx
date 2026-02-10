@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { fetchForecast } from "@/lib/fetchForecast";
+import { openWeatherConfig } from "@/lib/config";
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr + "T00:00:00");
@@ -38,11 +39,11 @@ export default async function ForecastPage({
         {result.days.map((day) => (
           <li key={day.date}>
             <Link
-              href={`/forecast/${encodeURIComponent(city)}/${day.date}`}
+              href={`/forecast/${decodedCity}/${day.date}`}
               className="flex items-center gap-4 rounded-lg border border-gray-200 p-4 hover:bg-gray-50 cursor-pointer"
             >
               <Image
-                src={`https://openweathermap.org/img/wn/${day.icon}@2x.png`}
+                src={openWeatherConfig.iconUrl(day.icon)}
                 alt={day.description}
                 width={64}
                 height={64}

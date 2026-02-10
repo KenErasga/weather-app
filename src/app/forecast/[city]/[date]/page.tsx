@@ -1,20 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { fetchForecast } from "@/lib/fetchForecast";
-
-function ordinalSuffix(day: number): string {
-  if (day >= 11 && day <= 13) return "th";
-  switch (day % 10) {
-    case 1:
-      return "st";
-    case 2:
-      return "nd";
-    case 3:
-      return "rd";
-    default:
-      return "th";
-  }
-}
+import { openWeatherConfig } from "@/lib/config";
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr + "T00:00:00");
@@ -22,7 +9,7 @@ function formatDate(dateStr: string): string {
   const day = date.getDate();
   const month = date.toLocaleDateString("en-GB", { month: "long" });
   const year = date.getFullYear();
-  return `${weekday}, ${day}${ordinalSuffix(day)} of ${month} ${year}`;
+  return `${weekday}, ${day} ${month} ${year}`;
 }
 
 export default async function ForecastDetailPage({
@@ -51,7 +38,7 @@ export default async function ForecastDetailPage({
           No forecast data found for {date}
         </p>
         <Link
-          href={`/forecast/${encodeURIComponent(city)}`}
+          href={`/forecast/${decodedCity}`}
           className="mt-4 inline-block text-blue-600 hover:underline"
         >
           &larr; Back to forecast
@@ -63,7 +50,7 @@ export default async function ForecastDetailPage({
   return (
     <main className="mx-auto max-w-2xl px-4 py-8">
       <Link
-        href={`/forecast/${encodeURIComponent(city)}`}
+        href={`/forecast/${decodedCity}`}
         className="mb-6 inline-block text-blue-600 hover:underline"
       >
         &larr; Back to forecast
@@ -71,7 +58,7 @@ export default async function ForecastDetailPage({
 
       <div className="flex flex-col items-center text-center">
         <Image
-          src={`https://openweathermap.org/img/wn/${day.icon}@4x.png`}
+          src={openWeatherConfig.iconUrl(day.icon, "4x")}
           alt={day.description}
           width={128}
           height={128}
@@ -84,11 +71,11 @@ export default async function ForecastDetailPage({
         <div className="mt-4 space-y-1 text-lg">
           <p>
             Min temp: <span className="font-semibold">{`${day.lowTemp}`}</span>{" "}
-            degrees celcius
+            degrees celsius
           </p>
           <p>
             Max temp: <span className="font-semibold">{`${day.highTemp}`}</span>{" "}
-            degrees celcius
+            degrees celsius
           </p>
           <p>
             Humidity: <span className="font-semibold">{day.humidity}</span>

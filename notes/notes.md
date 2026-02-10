@@ -77,7 +77,8 @@ From the result of the prompt. I start applying changes on how I want to do it (
 - Show just the 5-day forecast list.
 - Using https://openweathermap.org/img/wn/<code>@2x.png for the icons.
 - We want each day to be clickable, navigating to /forecast/{city}/{date} which shows the detail for that day. The Open Weather data already has this groupByDay groups the intervals. We need to preserve them and expose them on a detail page.
-
+- Reviewing code, looking through my to do list and look for improvements, check for what to refactor, testing the app
+ 
 ## TODO list
 
 Just a list of todos, or nice things to have.
@@ -87,7 +88,7 @@ Just a list of todos, or nice things to have.
 - Add Redux or other state management frameworks. 
 - Add state persistance on refresh with same to better manage API limits
 - Add better custom error handling, maybe a common component.
-- Add a common component for the loading.
-- Add more tests, currently testing only happy paths
-- If there is no limit in open weather api, can do a range of forcast and paginate them
-- Refactor fetching open where api
+- Add more tests, currently testing only happy paths, test edge cases
+- Can do a range of forecast and paginate them
+- Containarised the app
+- Deploy to vercel

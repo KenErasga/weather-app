@@ -1,10 +1,10 @@
 import type {
-  OpenWeatherForecastResponse,
   OpenWeatherInterval,
   DayForecast,
   ForecastData,
   ForecastError,
 } from "@/types/weather";
+import { fetchRawForecast, OpenWeatherError } from "./openWeatherService";
 
 export function groupByDay(intervals: OpenWeatherInterval[]): DayForecast[] {
   // Group intervals by date (YYYY-MM-DD)
@@ -40,9 +40,9 @@ export function groupByDay(intervals: OpenWeatherInterval[]): DayForecast[] {
       date,
       highTemp,
       lowTemp,
-      description: middayInterval.weather[0].description,
-      icon: middayInterval.weather[0].icon,
-      humidity: middayInterval.main.humidity,
+      description: middayInterval.weather[0]?.description,
+      icon: middayInterval.weather[0]?.icon,
+      humidity: middayInterval.main?.humidity,
     });
   }
 
@@ -52,29 +52,19 @@ export function groupByDay(intervals: OpenWeatherInterval[]): DayForecast[] {
 export async function fetchForecast(
   city: string,
 ): Promise<ForecastData | ForecastError> {
-  const apiKey = process.env.OPENWEATHER_API_KEY;
-  if (!apiKey) {
-    return { error: "Server configuration error: missing API key" };
-  }
+  try {
+    const data = await fetchRawForecast(city);
+    const days = groupByDay(data.list);
 
-  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(city)}&units=metric&appid=${apiKey}`;
-
-  const res = await fetch(url);
-
-  // TODO: better error handling, e.g. distinguish between city not found and API errors
-  if (!res.ok) {
-    if (res.status === 404) {
-      return { error: `City "${city}" not found` };
+    return {
+      city: data.city.name,
+      country: data.city.country,
+      days,
+    };
+  } catch (error) {
+    if (error instanceof OpenWeatherError) {
+      return { error: error.message };
     }
     return { error: "Failed to fetch forecast data" };
   }
-
-  const data: OpenWeatherForecastResponse = await res.json();
-  const days = groupByDay(data.list);
-
-  return {
-    city: data.city.name,
-    country: data.city.country,
-    days,
-  };
 }

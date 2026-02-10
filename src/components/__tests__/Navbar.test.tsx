@@ -21,7 +21,7 @@ vi.mock("next/navigation", () => ({
 describe("Navbar", () => {
   it("renders the app title", () => {
     render(<Navbar />);
-    expect(screen.getByText("Weather App")).toBeInTheDocument();
+    expect(screen.getByText("My Weather App")).toBeInTheDocument();
   });
 
   it("renders a SearchForm inside the nav", () => {
