@@ -34,7 +34,6 @@ describe("SearchForm", () => {
     expect(buttons.length).toBeGreaterThan(0);
   });
 
-  // TODO: add tests for error handling, e.g. submitting empty input, submitting non-existent city, etc. This will require mocking the API response in the ForecastPage tests.
   it("navigates to /forecast with city query on submit", () => {
     const { container } = render(<SearchForm />);
     const view = within(container);
@@ -42,5 +41,27 @@ describe("SearchForm", () => {
     fireEvent.change(input, { target: { value: "London" } });
     fireEvent.submit(view.getByRole("button", { name: /get weather/i }));
     expect(mockPush).toHaveBeenCalledWith("/forecast/London");
+  });
+
+  it("shows error when submitting empty input", () => {
+    const { container } = render(<SearchForm />);
+    const view = within(container);
+    fireEvent.submit(view.getByRole("button", { name: /get weather/i }));
+    expect(view.getByText("Please enter a city name")).toBeInTheDocument();
+    expect(mockPush).not.toHaveBeenCalled();
+  });
+
+  it("shows error when city name contains numbers", () => {
+    const { container } = render(<SearchForm />);
+    const view = within(container);
+    const input = view.getByPlaceholderText("Search for a city...");
+    fireEvent.change(input, { target: { value: "London123" } });
+    fireEvent.submit(view.getByRole("button", { name: /get weather/i }));
+    expect(
+      view.getByText(
+        "City name can only contain letters, spaces, hyphens and apostrophes",
+      ),
+    ).toBeInTheDocument();
+    expect(mockPush).not.toHaveBeenCalled();
   });
 });
