@@ -21,14 +21,16 @@
       - openWeather (fetch + mapping)
       - format (date/temp formatting)
     - type/
-    - weather
+        - weather
   - The user is meant to type the name of a city in the input box and click the button.
   - After clicking on "Get Weather" the next page is displayed with the 5-day forecast
   - When clicking on one of the days presented, a detailed forecast for that day is displayed
 - 1.3 Resource Open Weather app
   - free api but can't use endpoint https://api.openweathermap.org/data/2.5/forecast/daily as it is not part of the free tier.
-  - I'll have to ask a question if I can use the https://api.openweathermap.org/data/2.5/forecast 5-day/3 hour
-  - Does not work without API key, getting a 401 Unauthorized
+  - ![alt text](image-3.png)
+  - I'll assume that I am using https://api.openweathermap.org/data/2.5/forecast 5-day/3 hour
+  - Does not work without API key, getting a 401 Unauthorized. Assuming that it is needed to create an account and get an API key
+
 
 ## Using Claude
 
@@ -69,15 +71,19 @@ Gives you:
 - High-Level Approach
 - Production concerns
 
-From the result of the prompt. I start applying changes on how I want to do it (more prompts, testing, debugging... etc). Keep the design plan into context and I want to do it step by step.
+## Updates
+
+From the result of the claude prompt. I start applying changes on how I want to do it (more prompts, testing, debugging, updating the code, refactoring... etc). Keep the design plan into context and I want to do it step by step.
 
 - First I want a scaffold of NextJS with hello world, add vitest for testing and create test, add prettier, then run test, lint and format to verify.
 - Create navbar and search form components. For Search do not add any functionality yet. We need a persistent navbar across pages with the app title "My Weather App" and a search form, plus a standalone search form on the home page body. Both search forms reuse the same component.
 - The search form UI exists but has no functionality. We need to wire it up to the Open Weather free-tier /forecast API (3-hour intervals, 5 days) so we can search a city and see a 5-day forecast list. The API key must stay server-side.
 - Show just the 5-day forecast list.
-- Using https://openweathermap.org/img/wn/<code>@2x.png for the icons.
+- Using "https://openweathermap.org/img/wn/[code]@2x.png for the icons.
 - We want each day to be clickable, navigating to /forecast/{city}/{date} which shows the detail for that day. The Open Weather data already has this groupByDay groups the intervals. We need to preserve them and expose them on a detail page.
-- Reviewing code, looking through my to do list and look for improvements, check for what to refactor, testing the app
+- Reviewing code, testing the app, fix any issues, looking through my to do list and look for improvements, and check what to refactor
+
+While I am going through each step, I am testing, debugging and updating things if necessary. I am keeping in mind what to improve and take notes of them for the future.
  
 ## TODO list
 
@@ -91,4 +97,4 @@ Just a list of todos, or nice things to have.
 - Add more tests, currently testing only happy paths, test edge cases
 - Can do a range of forecast and paginate them
 - Containarised the app
-- Deploy to vercel
+

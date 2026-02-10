@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { fetchForecast } from "@/lib/fetchForecast";
 import { openWeatherConfig } from "@/lib/config";
+import ErrorMessage from "@/components/ErrorMessage";
 
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr + "T00:00:00");
@@ -22,11 +23,7 @@ export default async function ForecastDetailPage({
   const result = await fetchForecast(decodedCity);
 
   if ("error" in result) {
-    return (
-      <main className="flex min-h-screen flex-col items-center justify-center">
-        <p className="text-lg text-red-600">{result.error}</p>
-      </main>
-    );
+    return <ErrorMessage message={result.error} />;
   }
 
   const day = result.days.find((d) => d.date === date);
