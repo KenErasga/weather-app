@@ -2,7 +2,7 @@
 
 A Next.js weather application that displays 5-day forecasts for cities using the OpenWeather API.
 
-You can look through [notes.md](./notes/notes.md) for my notes. 
+You can look through [notes.md](./notes/notes.md) for my notes.
 
 ## Prerequisites
 
@@ -11,31 +11,34 @@ You can look through [notes.md](./notes/notes.md) for my notes.
 ## Setup
 
 1. Install dependencies:
-   ```bash
-   npm install
-   ```
+
+    ```bash
+    npm install
+    ```
 
 2. Create a `.env.local` file in the project root:
-   ```
-   OPENWEATHER_API_KEY=your_api_key_here
-   ```
+
+    ```
+    OPENWEATHER_API_KEY=your_api_key_here
+    ```
 
 3. Start the development server:
-   ```bash
-   npm run dev
-   ```
+
+    ```bash
+    npm run dev
+    ```
 
 4. Open [http://localhost:3000](http://localhost:3000)
 
 ## Scripts
 
-| Script | Command | Description |
-|--------|---------|-------------|
-| `dev` | `npm run dev` | Start development server |
-| `build` | `npm run build` | Production build |
-| `test` | `npm run test` | Run tests (Vitest) |
-| `lint` | `npm run lint` | Run ESLint |
-| `format` | `npm run format` | Format code (Prettier) |
+| Script   | Command          | Description              |
+| -------- | ---------------- | ------------------------ |
+| `dev`    | `npm run dev`    | Start development server |
+| `build`  | `npm run build`  | Production build         |
+| `test`   | `npm run test`   | Run tests (Vitest)       |
+| `lint`   | `npm run lint`   | Run ESLint               |
+| `format` | `npm run format` | Format code (Prettier)   |
 
 ## Project Structure
 

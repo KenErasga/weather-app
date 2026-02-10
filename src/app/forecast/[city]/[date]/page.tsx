@@ -2,83 +2,54 @@ import Image from "next/image";
 import Link from "next/link";
 import { fetchForecast } from "@/lib/fetchForecast";
 import { openWeatherConfig } from "@/lib/config";
+import { formatDateLong } from "@/lib/formatDate";
 import ErrorMessage from "@/components/ErrorMessage";
 
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr + "T00:00:00");
-  const weekday = date.toLocaleDateString("en-GB", { weekday: "long" });
-  const day = date.getDate();
-  const month = date.toLocaleDateString("en-GB", { month: "long" });
-  const year = date.getFullYear();
-  return `${weekday}, ${day} ${month} ${year}`;
-}
+export default async function ForecastDetailPage({ params }: { params: Promise<{ city: string; date: string }> }) {
+    const { city, date } = await params;
+    const decodedCity = decodeURIComponent(city);
+    const result = await fetchForecast(decodedCity);
 
-export default async function ForecastDetailPage({
-  params,
-}: {
-  params: Promise<{ city: string; date: string }>;
-}) {
-  const { city, date } = await params;
-  const decodedCity = decodeURIComponent(city);
-  const result = await fetchForecast(decodedCity);
+    if ("error" in result) {
+        return <ErrorMessage message={result.error} />;
+    }
 
-  if ("error" in result) {
-    return <ErrorMessage message={result.error} />;
-  }
+    const day = result.days.find((d) => d.date === date);
 
-  const day = result.days.find((d) => d.date === date);
+    if (!day) {
+        return (
+            <main className="mx-auto max-w-2xl px-4 py-8">
+                <p className="text-lg text-red-600">No forecast data found for {date}</p>
+                <Link href={`/forecast/${decodedCity}`} className="mt-4 inline-block text-blue-600 hover:underline">
+                    &larr; Back to forecast
+                </Link>
+            </main>
+        );
+    }
 
-  if (!day) {
     return (
-      <main className="mx-auto max-w-2xl px-4 py-8">
-        <p className="text-lg text-red-600">
-          No forecast data found for {date}
-        </p>
-        <Link
-          href={`/forecast/${decodedCity}`}
-          className="mt-4 inline-block text-blue-600 hover:underline"
-        >
-          &larr; Back to forecast
-        </Link>
-      </main>
+        <main className="mx-auto max-w-2xl px-4 py-8">
+            <Link href={`/forecast/${decodedCity}`} className="mb-6 inline-block text-blue-600 hover:underline">
+                &larr; Back to forecast
+            </Link>
+
+            <div className="flex flex-col items-center text-center">
+                <Image src={openWeatherConfig.iconUrl(day.icon, "4x")} alt={day.description} width={128} height={128} />
+                <p className="mt-2 text-lg text-gray-600">{formatDateLong(date)}</p>
+                <h1 className="text-3xl font-bold">{result.city}</h1>
+                <p className="mt-2 text-lg capitalize text-gray-600">{day.description}</p>
+                <div className="mt-4 space-y-1 text-lg">
+                    <p>
+                        Min temp: <span className="font-semibold">{`${day.lowTemp}`}</span> degrees celsius
+                    </p>
+                    <p>
+                        Max temp: <span className="font-semibold">{`${day.highTemp}`}</span> degrees celsius
+                    </p>
+                    <p>
+                        Humidity: <span className="font-semibold">{day.humidity}</span>
+                    </p>
+                </div>
+            </div>
+        </main>
     );
-  }
-
-  return (
-    <main className="mx-auto max-w-2xl px-4 py-8">
-      <Link
-        href={`/forecast/${decodedCity}`}
-        className="mb-6 inline-block text-blue-600 hover:underline"
-      >
-        &larr; Back to forecast
-      </Link>
-
-      <div className="flex flex-col items-center text-center">
-        <Image
-          src={openWeatherConfig.iconUrl(day.icon, "4x")}
-          alt={day.description}
-          width={128}
-          height={128}
-        />
-        <p className="mt-2 text-lg text-gray-600">{formatDate(date)}</p>
-        <h1 className="text-3xl font-bold">{result.city}</h1>
-        <p className="mt-2 text-lg capitalize text-gray-600">
-          {day.description}
-        </p>
-        <div className="mt-4 space-y-1 text-lg">
-          <p>
-            Min temp: <span className="font-semibold">{`${day.lowTemp}`}</span>{" "}
-            degrees celsius
-          </p>
-          <p>
-            Max temp: <span className="font-semibold">{`${day.highTemp}`}</span>{" "}
-            degrees celsius
-          </p>
-          <p>
-            Humidity: <span className="font-semibold">{day.humidity}</span>
-          </p>
-        </div>
-      </div>
-    </main>
-  );
 }

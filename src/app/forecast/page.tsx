@@ -1,10 +1,5 @@
-import SearchForm from "@/components/SearchForm";
+import { redirect } from "next/navigation";
 
-export default function Forecast() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="mb-8 text-4xl font-bold">My Weather App</h1>
-      <SearchForm />
-    </main>
-  );
+export default function ForecastIndex() {
+    redirect("/");
 }

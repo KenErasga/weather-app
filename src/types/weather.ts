@@ -1,43 +1,43 @@
 export interface OpenWeatherInterval {
-  dt: number;
-  dt_txt: string;
-  main: {
-    temp: number;
-    temp_min: number;
-    temp_max: number;
-    humidity: number;
-  };
-  weather: {
-    description: string;
-    icon: string;
-  }[];
+    dt: number;
+    dt_txt: string;
+    main: {
+        temp: number;
+        temp_min: number;
+        temp_max: number;
+        humidity: number;
+    };
+    weather: {
+        description: string;
+        icon: string;
+    }[];
 }
 
 export interface OpenWeatherForecastResponse {
-  cod: string;
-  message: number | string;
-  list: OpenWeatherInterval[];
-  city: {
-    name: string;
-    country: string;
-  };
+    cod: string;
+    message: number | string;
+    list: OpenWeatherInterval[];
+    city: {
+        name: string;
+        country: string;
+    };
 }
 
 export interface DayForecast {
-  date: string;
-  highTemp: number;
-  lowTemp: number;
-  description: string;
-  icon: string;
-  humidity: number;
+    date: string;
+    highTemp: number;
+    lowTemp: number;
+    description: string;
+    icon: string;
+    humidity: number;
 }
 
 export interface ForecastData {
-  city: string;
-  country: string;
-  days: DayForecast[];
+    city: string;
+    country: string;
+    days: DayForecast[];
 }
 
 export interface ForecastError {
-  error: string;
+    error: string;
 }

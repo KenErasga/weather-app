@@ -4,33 +4,32 @@
 
 - Started looking at [Salable task](./salable-.md).
 - 1.1 Objectives:
-  - Build a functioning Weather app using the Open Weather API
-  - Search for a 5-day weather forecast of a specific city and display the results.
-  - Display more details about the weather forecast of one of the days returned on the search when clicking on it
+    - Build a functioning Weather app using the Open Weather API
+    - Search for a 5-day weather forecast of a specific city and display the results.
+    - Display more details about the weather forecast of one of the days returned on the search when clicking on it
 - 1.2 Prototype:
-  - The main page displays a header and two search fields with a button to perform the search.
-    - app
-      - / (search screen)
-      - /forecast/page (5-day list)
-      - /forecast/[day]/page (on click day details)
-      - /api/forecast/route (server route to call OpenWeather)
-    - components/
-      - SearchForm
-      - ForecastCard
-    - lib/
-      - openWeather (fetch + mapping)
-      - format (date/temp formatting)
-    - type/
-        - weather
-  - The user is meant to type the name of a city in the input box and click the button.
-  - After clicking on "Get Weather" the next page is displayed with the 5-day forecast
-  - When clicking on one of the days presented, a detailed forecast for that day is displayed
+    - The main page displays a header and two search fields with a button to perform the search.
+        - app
+            - / (search screen)
+            - /forecast/page (5-day list)
+            - /forecast/[day]/page (on click day details)
+            - /api/forecast/route (server route to call OpenWeather)
+        - components/
+            - SearchForm
+            - ForecastCard
+        - lib/
+            - openWeather (fetch + mapping)
+            - format (date/temp formatting)
+        - type/
+            - weather
+    - The user is meant to type the name of a city in the input box and click the button.
+    - After clicking on "Get Weather" the next page is displayed with the 5-day forecast
+    - When clicking on one of the days presented, a detailed forecast for that day is displayed
 - 1.3 Resource Open Weather app
-  - free api but can't use endpoint https://api.openweathermap.org/data/2.5/forecast/daily as it is not part of the free tier.
-  - ![alt text](image-3.png)
-  - I'll assume that I am using https://api.openweathermap.org/data/2.5/forecast 5-day/3 hour
-  - Does not work without API key, getting a 401 Unauthorized. Assuming that it is needed to create an account and get an API key
-
+    - free api but can't use endpoint https://api.openweathermap.org/data/2.5/forecast/daily as it is not part of the free tier.
+    - ![alt text](image-3.png)
+    - I'll assume that I am using https://api.openweathermap.org/data/2.5/forecast 5-day/3 hour
+    - Does not work without API key, getting a 401 Unauthorized. Assuming that it is needed to create an account and get an API key
 
 ## Using Claude
 
@@ -84,17 +83,16 @@ From the result of the claude prompt. I start applying changes on how I want to 
 - Reviewing code, testing the app, fix any issues, looking through my to do list and look for improvements, and check what to refactor
 
 While I am going through each step, I am testing, debugging and updating things if necessary. I am keeping in mind what to improve and take notes of them for the future.
- 
+
 ## TODO list
 
 Just a list of todos, or nice things to have.
 
 - Add pre-commit hooks to run test, lint and formating. Maybe use Husky.
 - Add End-to-End tests.
-- Add Redux or other state management frameworks. 
+- Add Redux or other state management frameworks.
 - Add state persistance on refresh with same to better manage API limits
 - Add better custom error handling, maybe a common component.
 - Add more tests, currently testing only happy paths, test edge cases
 - Can do a range of forecast and paginate them
 - Containarised the app
-
